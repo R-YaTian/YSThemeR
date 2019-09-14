@@ -37,7 +37,7 @@ std::string themename(int themenum)
 {
 	std::string themepath = "/TTMenu/themes/" + std::to_string(themenum);
 
-	if ((access((themepath + "/YSMenu.ini").c_str(), F_OK) == 0))
+	if ((access((themepath + "/Color.bin").c_str(), F_OK) == 0))
 	{
 		if ((access((themepath + "/name.txt").c_str(), F_OK) == 0))
 		{
@@ -126,7 +126,7 @@ int main(int argc, char **argv)
 		int pressed = keysDown();
 		if (pressed & KEY_RIGHT)
 		{
-			if (selected != 9)
+			if (selected != 5)
 			{
 				selected += 1;
 				resetscreen();
@@ -146,15 +146,15 @@ int main(int argc, char **argv)
 			}
 			else
 			{
-			selected = 9;
+			selected = 5;
 			resetscreen();
 			}
 		}
 		if (pressed & KEY_Y)
 		{
 			std::string themepath = "/TTMenu/themes/0";
-			std::ifstream source((themepath + "/YSMenu.ini").c_str(), std::ios::binary);
-			std::ofstream dest("/TTmenu/YSMenu.ini", std::ios::binary);
+			std::ifstream source((themepath + "/Color.bin").c_str(), std::ios::binary);
+			std::ofstream dest("/TTmenu/Color.bin", std::ios::binary);
 			dest << source.rdbuf();
 			source.close();
 			dest.close();
@@ -179,8 +179,8 @@ int main(int argc, char **argv)
 			if (themesname != "Theme not found")
 			{
 				std::string themepath = "/TTMenu/themes/" + std::to_string(selected);
-				std::ifstream source((themepath + "/YSMenu.ini").c_str(), std::ios::binary);
-				std::ofstream dest("/TTmenu/YSMenu.ini", std::ios::binary);
+				std::ifstream source((themepath + "/Color.bin").c_str(), std::ios::binary);
+				std::ofstream dest("/TTmenu/Color.bin", std::ios::binary);
 				dest << source.rdbuf();
 				source.close();
 				dest.close();
