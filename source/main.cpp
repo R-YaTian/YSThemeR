@@ -73,7 +73,7 @@ void resetscreen()
 	}
 	printf("\x1b[0m]");
 	printf("\x1b[37;1m]");
-	printf("\x1b[10;1HA - Install theme\n Y - Restore default\n Left/Right - Select themes\n YSTheme V2.1R BY R-YaTian\n github.com/R-YaTian/YSThemeR");
+	printf("\x1b[10;1HA - Install theme\n Y - Restore default\n Left/Right - Select themes\n YSThemeR V2.1 BY R-YaTian\n github.com/R-YaTian/YSThemeR");
 	printf("\x1b[35;1m");
 	printf("\x1b[1;1HTheme %lu - %s \n", selected, themename(selected).c_str());
 	printf("\x1b[0m");
