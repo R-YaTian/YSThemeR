@@ -14,7 +14,8 @@ export VERSION_MINOR	:= 1
 export VERSION_PATCH	:= 0
 VERSION	:=	$(VERSION_MAJOR).$(VERSION_MINOR).$(VERSION_PATCH)
 
-_ARM7_ELF	:=	-7 $(DEVKITPRO)/calico/bin/ds7_maine.elf
+# simple nds srl without dsi extended header, and use ds7_lykoi.elf as arm7 binary
+_ARM7_ELF	:=	-h 0x200 -7 $(DEVKITPRO)/calico/bin/ds7_lykoi.elf
 
 #---------------------------------------------------------------------------------
 # TARGET is the name of the output
@@ -111,14 +112,12 @@ else
 endif
 
 export GAME_TITLE := $(TARGET)
+export GAME_SUBTITLE1 := R-YaTian
+export GAME_SUBTITLE2 := v$(VERSION)
 
 .PHONY: bootloader bootstub clean
 
-all:	$(BUILD) $(TARGET)_ds.nds
-
-$(TARGET)_ds.nds:	$(BUILD)
-  	# simple nds srl without dsi extended header thx Robz!
-	ndstool	-h 0x200 -c $(TARGET)_ds.nds $(_ARM7_ELF) -9 $(TARGET).elf -b icon.bmp "YSThemeR;R-YaTian"
+all:	$(BUILD)
 
 #---------------------------------------------------------------------------------
 $(BUILD): bootloader bootstub
@@ -128,7 +127,7 @@ $(BUILD): bootloader bootstub
 #---------------------------------------------------------------------------------
 clean:
 	@echo clean ...
-	@rm -fr $(BUILD) $(TARGET).elf $(TARGET).nds data
+	@rm -fr $(BUILD) $(TARGET).elf $(TARGET).nds $(TARGET)_ds.nds data
 	@$(MAKE) -C bootloader clean
 	@$(MAKE) -C bootstub clean
 
