@@ -16,7 +16,6 @@
  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 ------------------------------------------------------------------*/
 
-
 #include <nds.h>
 #include <stdio.h>
 #include <sys/stat.h>
@@ -26,13 +25,7 @@
 #include <fat.h>
 #include <fstream>
 
-
-//---------------------------------------------------------------------------------   File management part
-
-
-/*_-_-_-_-_-_-_-_-_-_-_-_-*/
-
-
+// File management part
 std::string themename(int themenum)
 {
 	std::string themepath = "/TTMenu/themes/" + std::to_string(themenum);
@@ -60,10 +53,7 @@ std::string themename(int themenum)
 	}
 }
 
-
-//---------------------------------------------------------------------------------NDS related
-
-
+// NDS related
 unsigned long int selected = 0;
 
 void resetscreen()
@@ -76,7 +66,7 @@ void resetscreen()
 	}
 	printf("\x1b[0m]");
 	printf("\x1b[37;1m]");
-	printf("\x1b[10;1HA - Install theme\n Y - Restore default\n Left/Right - Select themes\n YSTheme V2.0R BY R-YaTian\n github.com/R-YaTian/YSThemeR");
+	printf("\x1b[10;1HA - Install theme\n Y - Restore default\n Left/Right - Select themes\n YSTheme V2.1R BY R-YaTian\n github.com/R-YaTian/YSThemeR");
 	printf("\x1b[35;1m");
 	printf("\x1b[1;1HTheme %lu - %s \n", selected, themename(selected).c_str());
 	printf("\x1b[0m");
@@ -90,22 +80,15 @@ void resetscreen()
 
 void stop(void)
 {
-	
-	
-	//---------------------------------------------------------------------------------
-	
-	
-	while (true)
+	while (pmMainLoop())
 	{
-			swiWaitForVBlank();
+		swiWaitForVBlank();
 	}
 }
 
-//---------------------------------------------------------------------------------NDS Code
+// NDS Code
 int main(int argc, char **argv)
 {
-	//---------------------------------------------------------------------------------
-
 	videoSetMode(MODE_0_2D);
 	videoSetModeSub(MODE_0_2D);
 	vramSetBankH(VRAM_H_SUB_BG);
@@ -116,9 +99,10 @@ int main(int argc, char **argv)
 		printf("fatInitDefault failed!\n");
 		stop();
 	}
+
 	std::string themesname = themename(selected);
 	resetscreen();
-	while (true)
+	while (pmMainLoop())
 	{
 		themesname = themename(selected);
 		//Scan nds KEY
